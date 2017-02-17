@@ -14,9 +14,9 @@ function createSceneTuto(engine) {
     var light = new BABYLON.PointLight("Omni", new BABYLON.Vector3(10, 50, 50), scene);
     var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 40, new BABYLON.Vector3(0,0,0), scene);
 
-    // Adding new Ethanol molecule
-    var ethanol = new Molecule ("ethanol", "Ethanol", new BABYLON.Vector3(10,0,0), scene);
-    ethanol.position = new BABYLON.Vector3(0,0,0);
+    // Adding new molecule molecule
+    var molecule = new Molecule ("ethanol", "Ethanol", new BABYLON.Vector3(0,0,0), scene);// modif de position dans la molecule
+    //molecule.position = new BABYLON.Vector3(0,0,0);
 
     scene.registerBeforeRender(function () {
 
@@ -24,8 +24,8 @@ function createSceneTuto(engine) {
         light.position = camera.position;
 
         //animate the mesh
-        ethanol.rotation.x += 0.01;
-        ethanol.rotation.z += 0.02;
+        molecule.rotation.x += 0.01;
+        molecule.rotation.z += 0.02;
     });
 return scene;
 }

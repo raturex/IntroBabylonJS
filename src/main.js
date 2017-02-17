@@ -4,13 +4,15 @@
  */
 
 window.onload = function(){
+	
     var canvas = document.getElementById("renderCanvas");
-
     var controlPanel = document.getElementById("controlPanel");
     var cameraPanel = document.getElementById("cameraPanel");
     var divFps = document.getElementById("fps");
     var divProp = document.getElementById("objPropTitle");
     var ballStick = document.getElementById("ballstick");
+	var moleculeList = document.getElementById("moleculelist");
+	
     // Check support
     if (!BABYLON.Engine.isSupported()) {
         window.alert('Browser not supported');
@@ -84,6 +86,33 @@ window.onload = function(){
                       }
                   }
               }
+    });
+	
+	
+	moleculeList.addEventListener("change", function () {
+        if (scene) {
+				var molecule = scene.getMeshByName("Molecule");
+					if(molecule){
+						molecule.dispose();	
+					}
+					molecule = new Molecule(moleculeList.value, moleculeList.value, new BABYLON.Vector3(0,0,0), scene);
+					
+					//recuperation de la lumiere existente de la scene 
+					var light = scene.getLightByName("Omni");
+					
+					// recuperation de la camera active de la scene
+					var camera = scene.activeCamera.position;
+					
+						scene.registerBeforeRender(function () {
+
+						// lIGHT from camera anytime !
+							light.position = camera;
+
+							//animate the mesh
+							molecule.rotation.x += 0.01;
+							molecule.rotation.z += 0.02;
+						});
+								  }
     });
 
        var hideCameraPanel = function () {
